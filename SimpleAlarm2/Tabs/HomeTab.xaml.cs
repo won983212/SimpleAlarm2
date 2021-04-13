@@ -13,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SimpleAlarm2
+namespace SimpleAlarm2.Tabs
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// HomeTab.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomeTab : UserControl
     {
-        public MainWindow()
+        public HomeTab()
         {
             InitializeComponent();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
         }
     }
 }

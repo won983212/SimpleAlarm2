@@ -15,6 +15,12 @@ namespace SimpleAlarm2.Controls
             = DependencyProperty.Register("Time", typeof(DateTime), typeof(AnalogClock),
                 new FrameworkPropertyMetadata(DateTime.Now, FrameworkPropertyMetadataOptions.AffectsRender));
 
+        public AnalogClock()
+        {
+            Width = 180;
+            Height = 180;
+        }
+
         public DateTime Time
         {
             get => (DateTime)GetValue(TimeProperty);
