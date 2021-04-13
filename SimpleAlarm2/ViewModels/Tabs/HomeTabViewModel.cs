@@ -9,20 +9,32 @@ namespace SimpleAlarm2.ViewModels.Tabs
 {
     class HomeTabViewModel : TabChild
     {
+        private DateTime _now;
 
+        public DateTime Now
+        {
+            get => _now;
+            set
+            {
+                _now = value;
+                OnPropertyChanged();
+            }
+        }
 
         public HomeTabViewModel(TabContainer parent)
             : base(parent)
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Tick += Timer_Tick;
+            timer.Tick += (s, e) => UpdateTime();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Start();
+
+            UpdateTime();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void UpdateTime()
         {
-
+            Now = DateTime.Now;
         }
     }
 }

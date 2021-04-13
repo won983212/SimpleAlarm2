@@ -78,6 +78,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ClockPack.xaml.cs">
+      <DependentUpon>ClockPack.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Tabs\HomeTab.xaml.cs">
       <DependentUpon>HomeTab.xaml</DependentUpon>
@@ -86,6 +89,10 @@
     <Compile Include="ViewModels\TabContainer.cs" />
     <Compile Include="ViewModels\TabChild.cs" />
     <Compile Include="ViewModels\Tabs\HomeTabViewModel.cs" />
+    <Page Include="Controls\ClockPack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
