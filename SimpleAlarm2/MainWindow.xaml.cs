@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace SimpleAlarm2
 {
-    /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
-    /// </summary>
+    // TODO(Release): App.xaml에 Todo 있으니까 주의
     public partial class MainWindow : Window
     {
         public MainWindow()

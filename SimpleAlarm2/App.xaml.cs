@@ -8,10 +8,26 @@ using System.Windows;
 
 namespace SimpleAlarm2
 {
-    /// <summary>
-    /// App.xaml에 대한 상호 작용 논리
-    /// </summary>
+    public enum Skin
+    {
+        Light, Dark
+    }
+
     public partial class App : Application
     {
+        private static Skin _skin = Skin.Light;
+
+        public static Skin Skin
+        {
+            get => _skin;
+            set
+            {
+                if (_skin != value)
+                {
+                    _skin = value;
+                    Current.Resources.MergedDictionaries[2].Source = new Uri("/Theme/Theme." + _skin.ToString() + ".xaml", UriKind.Relative);
+                }
+            }
+        }
     }
 }
