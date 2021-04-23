@@ -20,6 +20,28 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="{Binding SelectedTabItemIndex}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
+                <TabItem.Header>
+                    <md:PackIcon Kind="Home" Width="24" Height="24" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
+                <TabItem.Header>
+                    <md:PackIcon Kind="Bell" Width="24" Height="24" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
+                <TabItem.Header>
+                    <md:PackIcon Kind="Settings" Width="24" Height="24" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
+                <TabItem.Header>
+                    <md:PackIcon Kind="Power" Width="24" Height="24" />
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
         <ContentControl Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

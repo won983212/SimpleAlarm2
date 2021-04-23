@@ -15,6 +15,7 @@ namespace SimpleAlarm2
 
     public partial class App : Application
     {
+        private static ResourceDictionary _cachedSkinDictionary = null;
         private static Skin _skin = Skin.Light;
 
         public static Skin Skin
@@ -25,7 +26,9 @@ namespace SimpleAlarm2
                 if (_skin != value)
                 {
                     _skin = value;
-                    Current.Resources.MergedDictionaries[2].Source = new Uri("/Theme/Theme." + _skin.ToString() + ".xaml", UriKind.Relative);
+                    if (_cachedSkinDictionary == null)
+                        _cachedSkinDictionary = Current.Resources.MergedDictionaries[2];
+                    _cachedSkinDictionary.Source = new Uri("/Theme/Theme." + _skin.ToString() + ".xaml", UriKind.Relative);
                 }
             }
         }

@@ -10,6 +10,16 @@
             <SolidColorBrush x:Key="Gray700" Color="#616161"/>
             <SolidColorBrush x:Key="Gray800" Color="#424242"/>
             <SolidColorBrush x:Key="Gray900" Color="#212121"/> -->
+
+    <SolidColorBrush x:Key="Primary" Color="#3F51B5"/>
+
+    <SolidColorBrush x:Key="TextColor" Color="#000000"/>
+    <SolidColorBrush x:Key="TextLight0Color" Color="#303030"/>
+    <SolidColorBrush x:Key="TextLight1Color" Color="#606060"/>
+    <SolidColorBrush x:Key="TextLight2Color" Color="#707070"/>
+
+    <SolidColorBrush x:Key="CardColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="CardDark0Color" Color="#E0E0E0"/>
     
-    <SolidColorBrush x:Key="TextForeground" Color="#757575"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#DFDFDF"/>
 </ResourceDictionary>

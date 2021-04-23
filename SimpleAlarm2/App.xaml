@@ -20,6 +20,7 @@
 
             <!-- Styles -->
             <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
                 <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}"/>
                 <Setter Property="FontWeight" Value="Light"/>
             </Style>

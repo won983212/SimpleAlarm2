@@ -7,18 +7,18 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Height="80" Width="160">
-    <Border x:Name="borderBackground" Background="{StaticResource Background}" BorderBrush="{StaticResource Gray300}"
+    <Border x:Name="borderBackground" Background="{DynamicResource CardColor}" BorderBrush="{DynamicResource BorderColor}"
             CornerRadius="5" BorderThickness="1">
         <Grid>
-            <md:PackIcon Kind="Add" Width="32" Height="32" Foreground="{StaticResource Gray300}" 
+            <md:PackIcon Kind="Add" Width="32" Height="32" Foreground="{DynamicResource BorderColor}" 
                          HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Grid x:Name="pnlAlarmContent" Visibility="Hidden">
                 <StackPanel Margin="20,14">
-                    <TextBlock x:Name="tblAlarmName" FontSize="9pt" Foreground="{StaticResource Gray700}">My alarm1</TextBlock>
+                    <TextBlock x:Name="tblAlarmName" FontSize="9pt" Foreground="{DynamicResource TextLight1Color}">My alarm1</TextBlock>
                     <TextBlock x:Name="tblAlarmTime" FontSize="24pt" Margin="0,4,0,0">17:12</TextBlock>
                 </StackPanel>
                 <md:PackIcon Kind="Close" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Top"
-                         Foreground="{StaticResource Gray600}" />
+                         Foreground="{DynamicResource TextLight2Color}" />
             </Grid>
         </Grid>
     </Border>
