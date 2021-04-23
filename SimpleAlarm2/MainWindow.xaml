@@ -10,6 +10,8 @@
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="Window_MouseDown"
+        MouseMove="Window_MouseMove"
+        Topmost="{Binding IsChecked, ElementName=toggleBtnTopmost}"
         Title="SimpleAlarm" Height="400" Width="700">
     <Window.DataContext>
         <viewmodel:MainViewModel />
@@ -20,28 +22,31 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="{Binding SelectedTabItemIndex}">
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
-                <TabItem.Header>
-                    <md:PackIcon Kind="Home" Width="24" Height="24" />
-                </TabItem.Header>
-            </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
-                <TabItem.Header>
-                    <md:PackIcon Kind="Bell" Width="24" Height="24" />
-                </TabItem.Header>
-            </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
-                <TabItem.Header>
-                    <md:PackIcon Kind="Settings" Width="24" Height="24" />
-                </TabItem.Header>
-            </TabItem>
-            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8">
-                <TabItem.Header>
-                    <md:PackIcon Kind="Power" Width="24" Height="24" />
-                </TabItem.Header>
-            </TabItem>
-        </TabControl>
+        <Grid x:Name="menuBar" HorizontalAlignment="Left">
+            <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="{Binding SelectedTabItemIndex}">
+                <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="홈">
+                    <TabItem.Header>
+                        <md:PackIcon Kind="Home" Width="24" Height="24" />
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="알람 설정">
+                    <TabItem.Header>
+                        <md:PackIcon Kind="Bell" Width="24" Height="24" />
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="설정">
+                    <TabItem.Header>
+                        <md:PackIcon Kind="Settings" Width="24" Height="24" />
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="프로그램 종료">
+                    <TabItem.Header>
+                        <md:PackIcon Kind="Power" Width="24" Height="24" />
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+            <ToggleButton x:Name="toggleBtnTopmost" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8" ToolTip="창을 항상 위에 표시하기"/>
+        </Grid>
         <ContentControl Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

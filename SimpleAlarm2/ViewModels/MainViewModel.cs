@@ -19,7 +19,10 @@ namespace SimpleAlarm2.ViewModels
             set
             {
                 _selectedTabItemIndex = value;
-                OnTabChanged(_selectedTabItemIndex);
+                if (_selectedTabItemIndex == 3)
+                    App.Current.Shutdown();
+                else
+                    CurrentPage = _tabs[_selectedTabItemIndex];
                 OnPropertyChanged();
             }
         }
@@ -28,14 +31,6 @@ namespace SimpleAlarm2.ViewModels
         {
             _tabs = new TabChild[] { new HomeTabViewModel(this), new HomeTabViewModel(this), new HomeTabViewModel(this) }; // TODO Tab이 만들어지면 여기에 추가
             SelectedTabItemIndex = 0;
-        }
-
-        private void OnTabChanged(int index)
-        {
-            if(index == 3)
-                App.Current.Shutdown();
-            else
-                CurrentPage = _tabs[index];
         }
     }
 }
