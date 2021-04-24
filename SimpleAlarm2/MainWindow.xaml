@@ -20,8 +20,12 @@
         <DataTemplate DataType="{x:Type viewModelTabs:HomeTabViewModel}">
             <tabs:HomeTab />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModelTabs:AlarmTabViewModel}">
+            <tabs:AlarmTab />
+        </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{DynamicResource CardColor}">
+        <ContentControl Content="{Binding CurrentPage}" />
         <Grid x:Name="menuBar" HorizontalAlignment="Left">
             <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="{Binding SelectedTabItemIndex}">
                 <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="홈">
@@ -47,6 +51,5 @@
             </TabControl>
             <ToggleButton x:Name="toggleBtnTopmost" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8" ToolTip="창을 항상 위에 표시하기"/>
         </Grid>
-        <ContentControl Content="{Binding CurrentPage}" />
     </Grid>
 </Window>

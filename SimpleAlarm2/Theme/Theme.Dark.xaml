@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="Primary" Color="#3F51B5"/>
 
-    <SolidColorBrush x:Key="TextColor" Color="#000000"/>
-    <SolidColorBrush x:Key="TextLight0Color" Color="#303030"/>
-    <SolidColorBrush x:Key="TextLight1Color" Color="#606060"/>
-    <SolidColorBrush x:Key="TextLight2Color" Color="#707070"/>
+    <SolidColorBrush x:Key="TextColor" Color="#A0A0A0"/>
+    <SolidColorBrush x:Key="TextLight0Color" Color="#A0A0A0"/>
+    <SolidColorBrush x:Key="TextLight1Color" Color="#A0A0A0"/>
+    <SolidColorBrush x:Key="TextLight2Color" Color="#A0A0A0"/>
 
-    <SolidColorBrush x:Key="CardColor" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="CardColor" Color="#444444"/>
     <SolidColorBrush x:Key="CardDark0Color" Color="#E0E0E0"/>
 
     <SolidColorBrush x:Key="BorderColor" Color="#DFDFDF"/>

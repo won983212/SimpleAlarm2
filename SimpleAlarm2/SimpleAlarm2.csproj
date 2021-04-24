@@ -91,12 +91,16 @@
     </Compile>
     <Compile Include="ObservableObject.cs" />
     <Compile Include="SpecificTimer.cs" />
+    <Compile Include="Tabs\AlarmTab.xaml.cs">
+      <DependentUpon>AlarmTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\HomeTab.xaml.cs">
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />
     <Compile Include="ViewModels\TabChild.cs" />
+    <Compile Include="ViewModels\Tabs\AlarmTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\HomeTabViewModel.cs" />
     <Page Include="Controls\AlarmCard.xaml">
       <SubType>Designer</SubType>
@@ -119,6 +123,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Tabs\AlarmTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Tabs\HomeTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
