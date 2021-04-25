@@ -97,11 +97,15 @@
     <Compile Include="Tabs\HomeTab.xaml.cs">
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tabs\SettingsTab.xaml.cs">
+      <DependentUpon>SettingsTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TabContainer.cs" />
     <Compile Include="ViewModels\TabChild.cs" />
     <Compile Include="ViewModels\Tabs\AlarmTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\HomeTabViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\SettingsTabViewModel.cs" />
     <Page Include="Controls\AlarmCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tabs\HomeTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tabs\SettingsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

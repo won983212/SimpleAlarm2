@@ -12,11 +12,15 @@ namespace SimpleAlarm2.ViewModels.Tabs
     {
         public ObservableCollection<AlertContent> Alerts { get; set; }
 
+        public bool IsAlertEmpty
+        {
+            get => Alerts.Count == 0;
+        }
+
         public AlarmTabViewModel(TabContainer parent)
             : base(parent)
         {
             Alerts = new ObservableCollection<AlertContent>();
-            Alerts.Add(new Alarm("Test alarm", TimeSpan.FromMinutes(45)));
         }
     }
 }

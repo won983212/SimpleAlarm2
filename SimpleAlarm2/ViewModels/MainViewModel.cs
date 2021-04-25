@@ -29,8 +29,8 @@ namespace SimpleAlarm2.ViewModels
 
         public MainViewModel()
         {
-            _tabs = new TabChild[] { new HomeTabViewModel(this), new AlarmTabViewModel(this), new HomeTabViewModel(this) }; // TODO Tab이 만들어지면 여기에 추가
-            SelectedTabItemIndex = 0;
+            _tabs = new TabChild[] { new HomeTabViewModel(this), new AlarmTabViewModel(this), new SettingsTabViewModel(this) }; // Tab이 만들어지면 여기에 추가
+            SelectedTabItemIndex = 2; // TODO(Debug): 나중에 기본탭index 0으로 바꾸자
         }
     }
 }

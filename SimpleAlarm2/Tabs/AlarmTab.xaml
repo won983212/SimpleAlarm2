@@ -2,24 +2,84 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimpleAlarm2.Tabs"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:SimpleAlarm2"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
     <Grid>
-        <ListBox ItemsSource="{Binding Alerts}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="{Binding Label}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"
+                    Visibility="{Binding IsAlertEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <md:PackIcon Kind="BellOff" Foreground="{DynamicResource TextLight1Color}" Width="48" Height="48" Margin="8" />
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Foreground="{DynamicResource TextLight1Color}" FontSize="18pt" FontWeight="Regular" Margin="0,0,0,4">
+                    설정된 알람 없음</TextBlock>
+                <TextBlock Foreground="{DynamicResource TextLight2Color}" FontSize="12pt">
+                    알람이 없습니다. 추가해주세요.</TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ListBox Margin="48,8,8,8" SelectionMode="Single" ItemsSource="{Binding Alerts}">
+                <ListBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                </ListBox.Resources>
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <md:Card Margin="8">
+                            <Grid Width="280">
+                                <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12" />
+                                <Grid Margin="16,8,8,24">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                                        <TextBlock Text="09:00" FontSize="24pt" />
+                                        <TextBlock Text="AM" Margin="3,0,0,5" VerticalAlignment="Bottom" />
+                                    </StackPanel>
+                                    <md:PackIcon Kind="Tag" Grid.Row="1" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
+                                    <TextBlock Text="My alarm" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                    <md:PackIcon Kind="Alarm" Grid.Row="2" Margin="0,4,4,4" Foreground="{DynamicResource TextLight2Color}" />
+                                    <TextBlock Text="12:15남음" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                </Grid>
+                            </Grid>
+                        </md:Card>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16">
+            <md:PackIcon Kind="AddAlarm" Width="24" Height="24"/>
+        </Button>
     </Grid>
 </UserControl>

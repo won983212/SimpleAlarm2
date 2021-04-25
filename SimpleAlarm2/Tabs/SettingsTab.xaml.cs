@@ -15,9 +15,12 @@ using System.Windows.Shapes;
 
 namespace SimpleAlarm2.Tabs
 {
-    public partial class HomeTab : UserControl
+    /// <summary>
+    /// SettingsTab.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class SettingsTab : UserControl
     {
-        public HomeTab()
+        public SettingsTab()
         {
             InitializeComponent();
         }

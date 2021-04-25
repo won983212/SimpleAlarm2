@@ -27,6 +27,7 @@ namespace SimpleAlarm2.Controls
             set => SetValue(TimeProperty, value);
         }
 
+        // TODO(LATER): 나중에 시계침에 애니메이션 넣어보자.
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
