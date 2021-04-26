@@ -26,8 +26,8 @@ namespace SimpleAlarm2
 
         public string GetRemainingTimeString()
         {
-            // TODO: 설정에 따라서 시를 보여줄지 말지 선택하게 하기
-            return GetRemainingTime().ToString(@"hh\:mm\:ss");
+            string format = Properties.Settings.Default.UseZeroFillFormat ? @"hh\:mm\:ss" : @"mm\:ss";
+            return GetRemainingTime().ToString(format);
         }
     }
 }

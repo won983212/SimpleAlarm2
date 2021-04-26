@@ -6,6 +6,9 @@
              xmlns:control="clr-namespace:SimpleAlarm2.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultText}"/>
+    </UserControl.Resources>
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <control:ClockPack />
     </Grid>

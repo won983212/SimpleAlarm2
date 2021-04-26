@@ -7,15 +7,18 @@
              xmlns:local="clr-namespace:SimpleAlarm2"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultText}"/>
+    </UserControl.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"
                     Visibility="{Binding IsAlertEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <md:PackIcon Kind="BellOff" Foreground="{DynamicResource TextLight1Color}" Width="48" Height="48" Margin="8" />
+            <md:PackIcon Kind="BellOff" Foreground="{DynamicResource TextLight1Color}" Width="56" Height="56" Margin="12" />
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Foreground="{DynamicResource TextLight1Color}" FontSize="18pt" FontWeight="Regular" Margin="0,0,0,4">
+                <TextBlock Foreground="{DynamicResource TextLight1Color}" FontSize="18pt" FontWeight="Regular" Margin="0,0,0,6">
                     설정된 알람 없음</TextBlock>
-                <TextBlock Foreground="{DynamicResource TextLight2Color}" FontSize="12pt">
-                    알람이 없습니다. 추가해주세요.</TextBlock>
+                <TextBlock Foreground="{DynamicResource TextLight2Color}" FontSize="11pt">
+                    추가한 알람 또는 타이머가 없습니다.</TextBlock>
             </StackPanel>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

@@ -20,9 +20,12 @@ namespace SimpleAlarm2
     public partial class MainWindow : Window
     {
         private const int animationDuration = 200;
+        private const int snapTolerance = 30;
+
         private ThicknessAnimation _openMenuAnimation;
         private ThicknessAnimation _closeMenuAnimation;
         private bool _isOpen;
+        private Point _offset = new Point();
 
         public MainWindow()
         {
@@ -36,19 +39,47 @@ namespace SimpleAlarm2
             menuBar.Margin = new Thickness(-48, 0, 0, 0);
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+            base.OnMouseLeftButtonDown(e);
+            _offset = e.GetPosition(this);
+            Mouse.Capture(this, CaptureMode.Element);
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
+            base.OnMouseLeftButtonUp(e);
+            Mouse.Capture(null);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            // window dragmove
+            if (Mouse.Captured == this && e.LeftButton == MouseButtonState.Pressed)
+            {
+                Point mouseLoc = PointToScreen(e.GetPosition(this));
+                double x = mouseLoc.X - _offset.X;
+                double y = mouseLoc.Y - _offset.Y;
+
+                if (Properties.Settings.Default.UseSnappingWindow)
+                {
+                    Rect r = SystemParameters.WorkArea;
+                    x = snapTo(r.Left, x);
+                    x = snapTo(r.Right - Width, x);
+                    y = snapTo(r.Top, y);
+                    y = snapTo(r.Bottom - Height, y);
+                }
+
+                Left = x;
+                Top = y;
+            }
+
+            // animation
             double mx = e.GetPosition(null).X;
             bool open = mx > 0 && mx < 50;
-            if(_isOpen != open)
+            if (_isOpen != open)
             {
                 if (open)
                     menuBar.BeginAnimation(MarginProperty, _openMenuAnimation);
@@ -56,6 +87,13 @@ namespace SimpleAlarm2
                     menuBar.BeginAnimation(MarginProperty, _closeMenuAnimation);
                 _isOpen = open;
             }
+        }
+
+        private double snapTo(double criteria, double value)
+        {
+            if (value >= criteria - snapTolerance && value <= criteria + snapTolerance)
+                return criteria;
+            return value;
         }
     }
 }

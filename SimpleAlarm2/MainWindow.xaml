@@ -9,8 +9,6 @@
         xmlns:tabs="clr-namespace:SimpleAlarm2.Tabs"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize"
-        MouseDown="Window_MouseDown"
-        MouseMove="Window_MouseMove"
         Topmost="{Binding IsChecked, ElementName=toggleBtnTopmost}"
         Title="SimpleAlarm" Height="400" Width="700">
     <Window.DataContext>
