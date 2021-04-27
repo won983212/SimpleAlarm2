@@ -58,18 +58,6 @@ namespace SimpleAlarm2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UseZeroFillFormat {
-            get {
-                return ((bool)(this["UseZeroFillFormat"]));
-            }
-            set {
-                this["UseZeroFillFormat"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseHomeClockOnly {
             get {
@@ -77,6 +65,18 @@ namespace SimpleAlarm2.Properties {
             }
             set {
                 this["UseHomeClockOnly"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseTopmost {
+            get {
+                return ((bool)(this["UseTopmost"]));
+            }
+            set {
+                this["UseTopmost"] = value;
             }
         }
     }

@@ -6,28 +6,47 @@ using System.Threading.Tasks;
 
 namespace SimpleAlarm2
 {
-    public abstract class AlertContent
+    public abstract class AlertContent : ObservableObject
     {
         public string Label { get; protected set; }
 
         public TimeSpan Time { get; protected set; }
 
-        public bool IsAlertEnabled { get; protected set; }
+        public bool IsAlertEnabled { get; set; }
+
+        public string TimeString { get => GetTimeString(); }
+
+        public string AmPmString { get => GetAmPmString(); }
+
+        private string _remainingTime = "(계산중..)";
+        public string RemainingTime
+        {
+            get => _remainingTime;
+            set
+            {
+                _remainingTime = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         protected AlertContent(string label, TimeSpan time)
         {
             Label = label;
             Time = time;
+            Update();
         }
 
 
         public abstract TimeSpan GetRemainingTime();
 
-        public string GetRemainingTimeString()
+        public abstract string GetTimeString();
+
+        public abstract string GetAmPmString();
+
+        public void Update()
         {
-            string format = Properties.Settings.Default.UseZeroFillFormat ? @"hh\:mm\:ss" : @"mm\:ss";
-            return GetRemainingTime().ToString(format);
+            RemainingTime = GetRemainingTime().ToString(@"hh\:mm\:ss");
         }
     }
 }

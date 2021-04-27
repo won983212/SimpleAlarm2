@@ -39,25 +39,18 @@ namespace SimpleAlarm2
             menuBar.Margin = new Thickness(-48, 0, 0, 0);
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnMouseLeftButtonDown(e);
+            base.OnPreviewMouseLeftButtonDown(e);
             _offset = e.GetPosition(this);
-            Mouse.Capture(this, CaptureMode.Element);
         }
 
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseMove(MouseEventArgs e)
         {
-            base.OnMouseLeftButtonUp(e);
-            Mouse.Capture(null);
-        }
-
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            base.OnMouseMove(e);
+            base.OnPreviewMouseMove(e);
 
             // window dragmove
-            if (Mouse.Captured == this && e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 Point mouseLoc = PointToScreen(e.GetPosition(this));
                 double x = mouseLoc.X - _offset.X;

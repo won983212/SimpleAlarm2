@@ -13,6 +13,16 @@ namespace SimpleAlarm2
             : base(label, time)
         { }
 
+        public override string GetAmPmString()
+        {
+            return "";
+        }
+
+        public override string GetTimeString()
+        {
+            return Time.ToString(@"hh\:mm\:ss");
+        }
+
         public override TimeSpan GetRemainingTime()
         {
             return Time;

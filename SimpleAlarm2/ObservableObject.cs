@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SimpleAlarm2
 {
-    class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -13,4 +13,6 @@
     <SolidColorBrush x:Key="BorderColor" Color="#DFDFDF"/>
     <SolidColorBrush x:Key="HighlightedPaperColor" Color="#505050"/>
     <SolidColorBrush x:Key="HighlightedContentColor" Color="#FFFFFF"/>
+    
+    <SolidColorBrush x:Key="ErrorColor" Color="#d45659"/>
 </ResourceDictionary>

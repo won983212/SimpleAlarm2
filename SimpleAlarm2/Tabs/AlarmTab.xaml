@@ -12,7 +12,7 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"
-                    Visibility="{Binding IsAlertEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    Visibility="{Binding IsAlertEmpty, Source={x:Static local:App.AlarmController}, Converter={StaticResource BooleanToVisibilityConverter}}">
             <md:PackIcon Kind="BellOff" Foreground="{DynamicResource TextLight1Color}" Width="56" Height="56" Margin="12" />
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Foreground="{DynamicResource TextLight1Color}" FontSize="18pt" FontWeight="Regular" Margin="0,0,0,6">
@@ -22,7 +22,7 @@
             </StackPanel>
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <ListBox Margin="48,8,8,8" SelectionMode="Single" ItemsSource="{Binding Alerts}">
+            <ListBox Margin="48,8,8,8" SelectionMode="Single" ItemsSource="{Binding Alerts, Source={x:Static local:App.AlarmController}}">
                 <ListBox.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
@@ -55,7 +55,7 @@
                     <DataTemplate>
                         <md:Card Margin="8">
                             <Grid Width="280">
-                                <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12" />
+                                <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12" IsChecked="{Binding IsAlertEnabled}" />
                                 <Grid Margin="16,8,8,24">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" />
@@ -67,13 +67,16 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                                        <TextBlock Text="09:00" FontSize="24pt" />
-                                        <TextBlock Text="AM" Margin="3,0,0,5" VerticalAlignment="Bottom" />
+                                        <TextBlock Text="{Binding TimeString}" FontSize="24pt" />
+                                        <TextBlock Text="{Binding AmPmString}" Margin="3,0,0,5" VerticalAlignment="Bottom" />
                                     </StackPanel>
                                     <md:PackIcon Kind="Tag" Grid.Row="1" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
-                                    <TextBlock Text="My alarm" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                    <TextBlock Text="{Binding Label}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
                                     <md:PackIcon Kind="Alarm" Grid.Row="2" Margin="0,4,4,4" Foreground="{DynamicResource TextLight2Color}" />
-                                    <TextBlock Text="12:15남음" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                    <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
+                                        <Run Text="{Binding RemainingTime}"/>
+                                        <Run>남음</Run>
+                                    </TextBlock>
                                 </Grid>
                             </Grid>
                         </md:Card>
@@ -81,7 +84,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </ScrollViewer>
-        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16">
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Margin="16" Command="{Binding AddAlarmCommand}">
             <md:PackIcon Kind="AddAlarm" Width="24" Height="24"/>
         </Button>
     </Grid>

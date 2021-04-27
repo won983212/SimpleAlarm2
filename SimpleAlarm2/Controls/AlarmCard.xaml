@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SimpleAlarm2.Controls"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             DataContext="{Binding Mode=OneWay, RelativeSource={RelativeSource Self}}"
              Height="80" Width="160">
     <Border x:Name="borderBackground" Background="{DynamicResource CardColor}" BorderBrush="{DynamicResource BorderColor}"
             CornerRadius="5" BorderThickness="1">
@@ -14,8 +15,8 @@
                          HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Grid x:Name="pnlAlarmContent" Visibility="Hidden">
                 <StackPanel Margin="20,14">
-                    <TextBlock x:Name="tblAlarmName" FontSize="9pt" Foreground="{DynamicResource TextLight1Color}">My alarm1</TextBlock>
-                    <TextBlock x:Name="tblAlarmTime" FontSize="24pt" Margin="0,4,0,0">17:12</TextBlock>
+                    <TextBlock x:Name="tblAlarmName" FontSize="9pt" Foreground="{DynamicResource TextLight1Color}" Text="{Binding Alarm.Label}"/>
+                    <TextBlock x:Name="tblAlarmTime" FontSize="24pt" Margin="0,4,0,0" Text="{Binding Alarm.RemainingTime}"/>
                 </StackPanel>
                 <md:PackIcon Kind="Close" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Top"
                          Foreground="{DynamicResource TextLight2Color}" />

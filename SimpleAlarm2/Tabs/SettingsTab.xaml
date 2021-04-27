@@ -28,10 +28,8 @@
             <ToggleButton Grid.Row="1" Grid.Column="1" IsChecked="{Binding UseSnappingWindow, Source={x:Static properties:Settings.Default}}"/>
             <TextBlock Grid.Row="2" Margin="0,16" Foreground="{DynamicResource TextLight1Color}">다크모드</TextBlock>
             <ToggleButton Grid.Row="2" Grid.Column="1" IsChecked="{Binding UseDarkMode, Source={x:Static properties:Settings.Default}}"/>
-            <TextBlock Grid.Row="3" Margin="0,16" Foreground="{DynamicResource TextLight1Color}">남은 시간에 00:00:00 포맷 사용</TextBlock>
-            <ToggleButton Grid.Row="3" Grid.Column="1" IsChecked="{Binding UseZeroFillFormat, Source={x:Static properties:Settings.Default}}"/>
-            <TextBlock Grid.Row="4" Margin="0,16" Foreground="{DynamicResource TextLight1Color}">메인화면 시계만 보기</TextBlock>
-            <ToggleButton Grid.Row="4" Grid.Column="1" IsChecked="{Binding UseHomeClockOnly, Source={x:Static properties:Settings.Default}}"/>
+            <TextBlock Grid.Row="3" Margin="0,16" Foreground="{DynamicResource TextLight1Color}">메인화면 시계만 보기</TextBlock>
+            <ToggleButton Grid.Row="3" Grid.Column="1" IsChecked="{Binding UseHomeClockOnly, Source={x:Static properties:Settings.Default}}"/>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8">
             <TextBlock FontWeight="Regular" Text="v"/>
