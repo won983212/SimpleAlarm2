@@ -23,6 +23,7 @@ namespace SimpleAlarm2
         {
             // TODO(Debug): 나중에 지워
             AddAlert(new Alarm("Test Alarm", new TimeSpan(10, 10, 10)));
+            AddAlert(new SpecificTimer("Test Timer", new TimeSpan(10, 10, 10)));
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000 - DateTime.Now.Millisecond);

@@ -72,11 +72,46 @@
                                     </StackPanel>
                                     <md:PackIcon Kind="Tag" Grid.Row="1" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
                                     <TextBlock Text="{Binding Label}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
-                                    <md:PackIcon Kind="Alarm" Grid.Row="2" Margin="0,4,4,4" Foreground="{DynamicResource TextLight2Color}" />
-                                    <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
-                                        <Run Text="{Binding RemainingTime}"/>
-                                        <Run>남음</Run>
-                                    </TextBlock>
+                                    <ContentPresenter Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding}">
+                                        <ContentPresenter.Resources>
+                                            <DataTemplate x:Key="AlarmContent">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <md:PackIcon Kind="Alarm" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
+                                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
+                                                        <Run Text="{Binding RemainingTime, Mode=OneWay}"/>
+                                                        <Run>남음</Run>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                            <DataTemplate x:Key="TimerContent">
+                                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Width="28" Height="28" Margin="0,0,12,0" 
+                                                            Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding PlayCommand}">
+                                                        <md:PackIcon Kind="Play" Width="20" Height="20" Foreground="{DynamicResource PrimaryContent}" />
+                                                    </Button>
+                                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Width="28" Height="28" Margin="0,0,12,0" 
+                                                            Visibility="{Binding IsPaused, Converter={StaticResource InverseBoolToVisConverter}}" Command="{Binding PauseCommand}">
+                                                        <md:PackIcon Kind="Pause" Width="20" Height="20" Foreground="{DynamicResource PrimaryContent}" />
+                                                    </Button>
+                                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Width="28" Height="28" Command="{Binding ResetCommand}">
+                                                        <md:PackIcon Kind="Sync" Width="20" Height="20" Foreground="{DynamicResource PrimaryContent}" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ContentPresenter.Resources>
+                                        <ContentPresenter.Style>
+                                            <Style TargetType="ContentPresenter">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding AlertType}" Value="0">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource AlarmContent}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding AlertType}" Value="1">
+                                                        <Setter Property="ContentTemplate" Value="{StaticResource TimerContent}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ContentPresenter.Style>
+                                    </ContentPresenter>
                                 </Grid>
                             </Grid>
                         </md:Card>

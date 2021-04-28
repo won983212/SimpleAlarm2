@@ -9,7 +9,7 @@ namespace SimpleAlarm2
     public class Alarm : AlertContent
     {
         public Alarm(string label, TimeSpan destTime)
-            : base(label, destTime)
+            : base(label, destTime, SimpleAlarm2.AlertType.Alarm)
         { }
 
         public override string GetAmPmString()
@@ -31,6 +31,11 @@ namespace SimpleAlarm2
                 dest = dest.AddDays(1);
 
             return dest - now;
+        }
+
+        public override void Update()
+        {
+            OnPropertyChanged("RemainingTime");
         }
     }
 }
