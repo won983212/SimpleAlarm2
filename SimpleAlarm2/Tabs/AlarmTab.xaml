@@ -54,6 +54,11 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <md:Card Margin="8">
+                            <md:Card.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="삭제" Command="{Binding DeleteCommand}"/>
+                                </ContextMenu>
+                            </md:Card.ContextMenu>
                             <Grid Width="280">
                                 <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12" IsChecked="{Binding IsAlertEnabled}" />
                                 <Grid Margin="16,8,8,24">

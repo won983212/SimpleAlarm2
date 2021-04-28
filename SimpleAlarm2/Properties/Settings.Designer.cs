@@ -25,7 +25,7 @@ namespace SimpleAlarm2.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.0.0")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -34,7 +34,7 @@ namespace SimpleAlarm2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool UseSnappingWindow {
             get {
                 return ((bool)(this["UseSnappingWindow"]));
@@ -77,6 +77,18 @@ namespace SimpleAlarm2.Properties {
             }
             set {
                 this["UseTopmost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Alarms {
+            get {
+                return ((string)(this["Alarms"]));
+            }
+            set {
+                this["Alarms"] = value;
             }
         }
     }

@@ -27,6 +27,7 @@ namespace SimpleAlarm2
         public ICommand PlayCommand { get; protected set; } = new RelayCommand<object>((o) => { });
         public ICommand PauseCommand { get; protected set; } = new RelayCommand<object>((o) => { });
         public ICommand ResetCommand { get; protected set; } = new RelayCommand<object>((o) => { });
+        public ICommand DeleteCommand { get; protected set; }
 
         private bool _isPaused = true;
         public bool IsPaused
@@ -42,12 +43,17 @@ namespace SimpleAlarm2
 
         protected AlertContent(string label, TimeSpan time, AlertType type)
         {
+            DeleteCommand = new RelayCommand<object>(DeleteElement);
             Label = label;
             Time = time;
             AlertType = (int) type;
             Update();
         }
 
+        private void DeleteElement(object o)
+        {
+            App.AlarmController.RemoveAlert(this);
+        }
 
         public abstract TimeSpan GetRemainingTime();
 

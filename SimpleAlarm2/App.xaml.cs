@@ -40,6 +40,7 @@ namespace SimpleAlarm2
         {
             Settings.PropertyChanged += Default_PropertyChanged;
             Skin = Settings.UseDarkMode ? Skin.Dark : Skin.Light;
+            AlarmController.LoadAlarms();
         }
 
         // TODO: "시계만 보기 옵션" 은 UI가 만들어지면 구현하자
