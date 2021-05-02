@@ -29,17 +29,10 @@
     <md:DialogHost Identifier="RootDialogHost"
                    DialogTheme="Inherit">
         <Grid Background="{DynamicResource CardColor}">
-            <!-- Top Snackbar -->
-            <md:Snackbar VerticalAlignment="Top" Background="{StaticResource ErrorColor}" 
-                                 Foreground="White" MessageQueue="{Binding SnackMessages}">
-                <md:Snackbar.Resources>
-                    <Style BasedOn="{StaticResource {x:Type md:SnackbarMessage}}" TargetType="{x:Type md:SnackbarMessage}">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </md:Snackbar.Resources>
-            </md:Snackbar>
-            
+            <!-- content -->
             <ContentControl Content="{Binding CurrentPage}" />
+
+            <!-- menu bar -->
             <Grid x:Name="menuBar" HorizontalAlignment="Left">
                 <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" SelectedIndex="{Binding SelectedTabItemIndex}">
                     <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}" Width="48" Height="48" Padding="8" ToolTip="홈">
@@ -67,6 +60,16 @@
                               Margin="8" ToolTip="창을 항상 위에 표시하기"
                               IsChecked="{Binding UseTopmost, Source={x:Static properties:Settings.Default}}"/>
             </Grid>
+
+            <!-- Top Snackbar -->
+            <md:Snackbar VerticalAlignment="Top" Background="{StaticResource ErrorColor}" 
+                                 Foreground="White" MessageQueue="{Binding SnackMessageQueue}">
+                <md:Snackbar.Resources>
+                    <Style BasedOn="{StaticResource {x:Type md:SnackbarMessage}}" TargetType="{x:Type md:SnackbarMessage}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    </Style>
+                </md:Snackbar.Resources>
+            </md:Snackbar>
         </Grid>
     </md:DialogHost>
 </Window>

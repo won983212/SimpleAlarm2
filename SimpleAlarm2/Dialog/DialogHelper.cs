@@ -13,5 +13,10 @@ namespace SimpleAlarm2.Dialog
         {
             return (T)((DialogHost)o).DialogContent;
         }
+
+        public static Task<object> Show(object content, DialogClosingEventHandler closingHandler)
+        {
+            return DialogHost.Show(content, "RootDialogHost", closingHandler);
+        }
     }
 }

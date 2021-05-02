@@ -43,7 +43,6 @@ namespace SimpleAlarm2
             AlarmController.LoadAlarms();
         }
 
-        // TODO: "시계만 보기 옵션" 은 UI가 만들어지면 구현하자
         private void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Settings.Save();

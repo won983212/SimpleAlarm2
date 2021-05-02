@@ -19,30 +19,15 @@ namespace SimpleAlarm2.Controls
 {
     public partial class ClockPack : UserControl
     {
-        private bool _hasSynchronized = false;
-
         public ClockPack()
         {
             InitializeComponent();
-
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000 - DateTime.Now.Millisecond);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-            UpdateTimerUI();
+            Loaded += (o, e) => App.AlarmController.OnTimeChanged += AlarmController_OnTimeChanged;
+            Unloaded += (o, e) => App.AlarmController.OnTimeChanged -= AlarmController_OnTimeChanged;
+            AlarmController_OnTimeChanged(this, null);
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (!_hasSynchronized)
-            {
-                (sender as DispatcherTimer).Interval = TimeSpan.FromSeconds(1);
-                _hasSynchronized = true;
-            }
-            UpdateTimerUI();
-        }
-
-        private void UpdateTimerUI()
+        private void AlarmController_OnTimeChanged(object sender, EventArgs e)
         {
             DateTime time = DateTime.Now;
             analogClock.Time = time;

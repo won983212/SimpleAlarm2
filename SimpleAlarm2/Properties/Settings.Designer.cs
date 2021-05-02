@@ -58,13 +58,13 @@ namespace SimpleAlarm2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UseHomeClockOnly {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowHomeAlarm {
             get {
-                return ((bool)(this["UseHomeClockOnly"]));
+                return ((bool)(this["ShowHomeAlarm"]));
             }
             set {
-                this["UseHomeClockOnly"] = value;
+                this["ShowHomeAlarm"] = value;
             }
         }
         
@@ -89,6 +89,30 @@ namespace SimpleAlarm2.Properties {
             }
             set {
                 this["Alarms"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PinnedAlarms {
+            get {
+                return ((string)(this["PinnedAlarms"]));
+            }
+            set {
+                this["PinnedAlarms"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseClockAnimation {
+            get {
+                return ((bool)(this["UseClockAnimation"]));
+            }
+            set {
+                this["UseClockAnimation"] = value;
             }
         }
     }

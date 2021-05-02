@@ -13,7 +13,7 @@ namespace SimpleAlarm2.ViewModels
     {
         private TabChild[] _tabs;
 
-        public SnackbarMessageQueue SnackMessages { get; private set; }
+        public static SnackbarMessageQueue SnackMessageQueue { get; private set; }
 
         private int _selectedTabItemIndex = 0;
         public int SelectedTabItemIndex
@@ -33,13 +33,12 @@ namespace SimpleAlarm2.ViewModels
         public MainViewModel()
         {
             _tabs = new TabChild[] { new HomeTabViewModel(this), new AlarmTabViewModel(this), new SettingsTabViewModel(this) }; // Tab이 만들어지면 여기에 추가
-            SnackMessages = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
-            SelectedTabItemIndex = 1; // TODO(Debug): 나중에 기본탭index 0으로 바꾸자
+            SelectedTabItemIndex = 0;
         }
 
-        public void AddErrorSnackbar(string message)
+        static MainViewModel()
         {
-            SnackMessages.Enqueue(message);
+            SnackMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(2));
         }
     }
 }

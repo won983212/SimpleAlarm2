@@ -13,7 +13,7 @@ namespace SimpleAlarm2.ViewModels.Tabs
 {
     class AlarmTabViewModel : TabChild
     {
-        public ICommand AddAlarmCommand => new RelayCommand<object>((o) => DialogHost.Show(new AddAlarmDialog(), "RootDialogHost", OnAddAlarmDialogClosed));
+        public ICommand AddAlarmCommand => new RelayCommand<object>((o) => DialogHelper.Show(new AddAlarmDialog(), OnAddAlarmDialogClosed));
 
         public AlarmTabViewModel(TabContainer parent)
             : base(parent)
@@ -30,14 +30,21 @@ namespace SimpleAlarm2.ViewModels.Tabs
                 // check name
                 if (name.Length == 0)
                 {
-                    ((MainViewModel)Parent).AddErrorSnackbar("이름을 입력해주세요.");
+                    MainViewModel.SnackMessageQueue.Enqueue("이름을 입력해주세요.");
+                    return;
+                }
+
+                // name contains illegal characters
+                if (name.Contains('♪') || name.Contains('♬'))
+                {
+                    MainViewModel.SnackMessageQueue.Enqueue("이름에 사용할 수 없는 문자가 포함되어있습니다.");
                     return;
                 }
 
                 // check time
                 if(time == null)
                 {
-                    ((MainViewModel)Parent).AddErrorSnackbar("시각 또는 시간을 제대로 입력해주세요.");
+                    MainViewModel.SnackMessageQueue.Enqueue("시각 또는 시간을 제대로 입력해주세요.");
                     return;
                 }
 

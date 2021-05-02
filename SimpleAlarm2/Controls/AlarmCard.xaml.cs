@@ -1,6 +1,11 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using SimpleAlarm2.Dialog;
+using SimpleAlarm2.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,41 +21,94 @@ using System.Windows.Threading;
 
 namespace SimpleAlarm2.Controls
 {
-    public partial class AlarmCard : UserControl
+    public partial class AlarmCard : UserControl, INotifyPropertyChanged
     {
-        public static DependencyProperty AlarmProperty
-            = DependencyProperty.Register("Alarm", typeof(AlertContent), typeof(AlarmCard),
-                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, AlarmChanged));
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public AlertContent Alarm
+        public static DependencyProperty IndexProperty
+            = DependencyProperty.Register("Index", typeof(int), typeof(AlarmCard),
+                new FrameworkPropertyMetadata(-1, FrameworkPropertyMetadataOptions.AffectsRender, IndexChanged));
+
+        public int Index
         {
-            get => (AlertContent)GetValue(AlarmProperty);
-            set => SetValue(AlarmProperty, value);
+            get => (int)GetValue(IndexProperty);
+            set => SetValue(IndexProperty, value);
         }
+
+        public AlertContent Alarm { get => App.AlarmController.GetPinnedAlert(Index); }
 
 
         public AlarmCard()
         {
             InitializeComponent();
+            Loaded += (o, e) => App.AlarmController.OnAlertChanged += AlarmController_OnAlertChanged;
+            Unloaded += (o, e) => App.AlarmController.OnAlertChanged -= AlarmController_OnAlertChanged;
         }
 
-        public static void AlarmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private void AlarmController_OnAlertChanged(object sender, int e)
         {
-            AlarmCard obj = (AlarmCard)d;
-            AlertContent alert = (AlertContent) e.NewValue;
+            if(Index == e && Alarm == null) // when the alarm this control owned has been deleted.
+                UpdateUI();
+        }
 
-            if(alert == null)
+        private void UpdateUI()
+        {
+            OnPropertyChanged("Alarm");
+            if (Alarm == null)
             {
-                obj.borderBackground.Background = Brushes.Transparent;
-                obj.borderBackground.BorderThickness = new Thickness(1);
-                obj.pnlAlarmContent.Visibility = Visibility.Hidden;
+                pnlNullContent.Visibility = Visibility.Visible;
+                pnlAlarmContent.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                pnlNullContent.Visibility = Visibility.Collapsed;
+                pnlAlarmContent.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void SetAlert_Click(object sender, RoutedEventArgs e)
+        {
+            DialogHelper.Show(new SetPinnedAlarmDialog(), OnSetPinnedAlarmDialogClosed);
+        }
+
+        private void ClearAlert_Click(object sender, RoutedEventArgs e)
+        {
+            App.AlarmController.SetPinnedAlert(Index, -1);
+            App.AlarmController.SavePinnedAlert();
+            UpdateUI();
+        }
+
+        private void OnSetPinnedAlarmDialogClosed(object o, DialogClosingEventArgs e)
+        {
+            SetPinnedAlarmDialog dialog = DialogHelper.GetDialog<SetPinnedAlarmDialog>(o);
+            int selected = dialog.cbxAlarmType.SelectedIndex;
+
+            if(selected != -1)
+            {
+                if (App.AlarmController.SetPinnedAlert(Index, selected))
+                {
+                    App.AlarmController.SavePinnedAlert();
+                    UpdateUI();
+                } 
+                else
+                {
+                    MainViewModel.SnackMessageQueue.Enqueue("선택한 알람은 이미 고정되어있습니다.");
+                }
             } 
             else
             {
-                obj.borderBackground.Background = (Brush) Application.Current.FindResource("CardDark0Color");
-                obj.borderBackground.BorderThickness = new Thickness(0);
-                obj.pnlAlarmContent.Visibility = Visibility.Visible;
+                MainViewModel.SnackMessageQueue.Enqueue("고정할 알람을 선택해주세요.");
             }
+        }
+
+        public static void IndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((AlarmCard)d).UpdateUI();
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

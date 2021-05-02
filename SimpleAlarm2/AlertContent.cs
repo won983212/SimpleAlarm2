@@ -14,32 +14,8 @@ namespace SimpleAlarm2
 
     public abstract class AlertContent : ObservableObject
     {
-        // class properties
-        public string Label { get; protected set; }
-        public TimeSpan Time { get; protected set; }
-        public bool IsAlertEnabled { get; set; }
-
-        // For xaml compatibility properties
-        public string TimeString { get => GetTimeString(); }
-        public string AmPmString { get => GetAmPmString(); }
-        public int AlertType { get; private set; }
-        public string RemainingTime { get => GetRemainingTime().ToString(@"hh\:mm\:ss"); }
-        public ICommand PlayCommand { get; protected set; } = new RelayCommand<object>((o) => { });
-        public ICommand PauseCommand { get; protected set; } = new RelayCommand<object>((o) => { });
-        public ICommand ResetCommand { get; protected set; } = new RelayCommand<object>((o) => { });
-        public ICommand DeleteCommand { get; protected set; }
-
+        private bool _isAlertEnabled = true;
         private bool _isPaused = true;
-        public bool IsPaused
-        {
-            get => _isPaused;
-            set
-            {
-                _isPaused = value;
-                OnPropertyChanged();
-            }
-        }
-
 
         protected AlertContent(string label, TimeSpan time, AlertType type)
         {
@@ -62,5 +38,40 @@ namespace SimpleAlarm2
         public abstract string GetAmPmString();
 
         public abstract void Update();
+
+
+        #region Properties
+
+        // class properties
+        public string Label { get; protected set; }
+        public TimeSpan Time { get; protected set; }
+        public bool IsAlertEnabled
+        {
+            get => _isAlertEnabled;
+            set { _isAlertEnabled = value; App.AlarmController.SaveAlarms(); }
+        }
+
+        // For xaml compatibility properties
+        public string TimeString { get => GetTimeString(); }
+        public string AmPmString { get => GetAmPmString(); }
+        public int AlertType { get; private set; }
+        public string RemainingTime { get => GetRemainingTime().ToString(@"hh\:mm\:ss"); }
+
+        public ICommand PlayCommand { get; protected set; } = new RelayCommand<object>((o) => { });
+        public ICommand PauseCommand { get; protected set; } = new RelayCommand<object>((o) => { });
+        public ICommand ResetCommand { get; protected set; } = new RelayCommand<object>((o) => { });
+        public ICommand DeleteCommand { get; protected set; }
+
+        public bool IsPaused
+        {
+            get => _isPaused;
+            set
+            {
+                _isPaused = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
     }
 }

@@ -33,6 +33,7 @@ namespace SimpleAlarm2
 
             remainingTime = endTime - DateTime.Now;
             OnPropertyChanged("TimeString");
+            OnPropertyChanged("RemainingTime");
         }
 
         private void Play(object o)
@@ -55,6 +56,7 @@ namespace SimpleAlarm2
             IsPaused = true;
             remainingTime = endTime - DateTime.Now;
             OnPropertyChanged("TimeString");
+            OnPropertyChanged("RemainingTime");
 
             if (timer != null)
             {
@@ -74,6 +76,7 @@ namespace SimpleAlarm2
             IsPaused = true;
             remainingTime = Time;
             OnPropertyChanged("TimeString");
+            OnPropertyChanged("RemainingTime");
         }
 
         public override string GetAmPmString()
