@@ -32,6 +32,7 @@
                         Width="24" Height="24" Margin="4" Click="ClearAlert_Click">
                     <md:PackIcon Kind="Close" Width="16" Height="16" Foreground="{DynamicResource TextLight2Color}" />
                 </Button>
+                <md:Ripple Feedback="White" MouseDown="Ripple_MouseDown"/>
             </Grid>
         </Border>
     </Grid>

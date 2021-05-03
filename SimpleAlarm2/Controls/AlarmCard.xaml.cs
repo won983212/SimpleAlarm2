@@ -113,5 +113,20 @@ namespace SimpleAlarm2.Controls
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private void Ripple_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(Alarm != null)
+            {
+                SpecificTimer alarm = Alarm as SpecificTimer;
+                if (alarm != null)
+                {
+                    if (alarm.IsPaused)
+                        alarm.PlayCommand.Execute(null);
+                    else
+                        alarm.PauseCommand.Execute(null);
+                }
+            }
+        }
     }
 }
