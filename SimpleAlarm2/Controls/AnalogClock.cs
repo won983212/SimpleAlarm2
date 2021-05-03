@@ -69,7 +69,7 @@ namespace SimpleAlarm2.Controls
             Point p2 = GetStraightPoint(ratio, length);
             prevIndex *= 2;
 
-            if(!Properties.Settings.Default.UseClockAnimation || _prevPoints[prevIndex] == null)
+            if(!App.Settings.UseClockAnimation || _prevPoints[prevIndex] == null)
             {
                 dc.DrawLine(pen, p1, p2);
             }

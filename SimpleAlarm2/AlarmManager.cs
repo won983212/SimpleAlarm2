@@ -13,7 +13,6 @@ using System.Windows.Threading;
 
 namespace SimpleAlarm2
 {
-    // TODO: 실제 알람기능 추가해야지.
     public class AlarmManager : ObservableObject
     {
         public event EventHandler<int> OnAlertChanged;
@@ -109,7 +108,7 @@ namespace SimpleAlarm2
         {
             Alerts.Add(content);
             OnPropertyChanged("IsAlertEmpty");
-            SaveAlarms();
+            App.Settings.Save();
         }
 
         public void RemoveAlert(AlertContent content)
@@ -129,89 +128,52 @@ namespace SimpleAlarm2
             Alerts.Remove(content);
 
             OnPropertyChanged("IsAlertEmpty");
-            SaveAlarms();
-            SavePinnedAlert();
+            App.Settings.Save();
         }
 
-        public void LoadAlarms()
+        public void Serialize(BinaryWriter writer)
         {
-            Alerts.Clear();
-            try
+            writer.Write(Alerts.Count);
+            foreach (AlertContent content in Alerts)
             {
-                string prop = Properties.Settings.Default.Alarms;
-                if (prop.Length > 0)
-                {
-                    foreach (string ent in prop.Split('♪'))
-                    {
-                        string[] tokens = ent.Split('♬');
-                        int type = tokens[0][0] - '0';
-                        string label = tokens[1];
-                        TimeSpan time = TimeSpan.FromSeconds(int.Parse(tokens[2]));
-
-                        AlertContent alert = null;
-                        if (type == (int)AlertType.Alarm)
-                            alert = new Alarm(label, time);
-                        else if (type == (int)AlertType.Timer)
-                            alert = new SpecificTimer(label, time);
-
-                        if (alert != null)
-                        {
-                            alert.IsAlertEnabled = bool.Parse(tokens[3]);
-                            Alerts.Add(alert);
-                        }
-                    }
-                    OnPropertyChanged("IsAlertEmpty");
-                }
-
-                prop = Properties.Settings.Default.PinnedAlarms;
-                if (prop.Length > 0)
-                {
-                    string[] ents = prop.Split(',');
-                    for (int i = 0; i < ents.Length; i++)
-                        _pinnedAlerts[i] = int.Parse(ents[i]);
-                }
+                writer.Write(content.AlertType);
+                writer.Write(content.Label);
+                writer.Write((int) content.Time.TotalSeconds);
+                writer.Write(content.IsAlertEnabled);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Load error" + e);
-                Alerts.Clear();
-                SaveAlarms();
-            }
-        }
-
-        public void SaveAlarms()
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < Alerts.Count; i++)
-            {
-                AlertContent ent = Alerts[i];
-                sb.Append(ent.AlertType);
-                sb.Append('♬');
-                sb.Append(ent.Label);
-                sb.Append('♬');
-                sb.Append((int)ent.Time.TotalSeconds);
-                sb.Append('♬');
-                sb.Append(ent.IsAlertEnabled);
-                sb.Append('♪');
-            }
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 1, 1);
-
-            Properties.Settings.Default.Alarms = sb.ToString();
-        }
-
-        public void SavePinnedAlert()
-        {
-            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < _pinnedAlerts.Length; i++)
             {
-                sb.Append(_pinnedAlerts[i]);
-                sb.Append(',');
+                writer.Write(_pinnedAlerts[i]);
             }
-            if (sb.Length > 0)
-                sb.Remove(sb.Length - 1, 1);
+        }
 
-            Properties.Settings.Default.PinnedAlarms = sb.ToString();
+        public void Deserialize(BinaryReader reader)
+        {
+            int len = reader.ReadInt32();
+            for(int i = 0; i < len; i++)
+            {
+                int type = reader.ReadInt32();
+                string label = reader.ReadString();
+                TimeSpan time = TimeSpan.FromSeconds(reader.ReadInt32());
+                bool isEnabled = reader.ReadBoolean();
+
+                AlertContent alert = null;
+                if (type == (int)AlertType.Alarm)
+                    alert = new Alarm(label, time);
+                else if (type == (int)AlertType.Timer)
+                    alert = new SpecificTimer(label, time);
+
+                if (alert != null)
+                {
+                    alert.IsAlertEnabled = isEnabled;
+                    Alerts.Add(alert);
+                }
+            }
+            for (int i = 0; i < _pinnedAlerts.Length; i++)
+            {
+                _pinnedAlerts[i] = reader.ReadInt32();
+            }
+            OnPropertyChanged("IsAlertEmpty");
         }
     }
 }

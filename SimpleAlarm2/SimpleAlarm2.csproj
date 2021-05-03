@@ -90,6 +90,7 @@
     <Compile Include="Alarm.cs" />
     <Compile Include="AlarmManager.cs" />
     <Compile Include="AlertContent.cs" />
+    <Compile Include="BinaryProperties.cs" />
     <Compile Include="Controls\AlarmCard.xaml.cs">
       <DependentUpon>AlarmCard.xaml</DependentUpon>
     </Compile>
@@ -108,6 +109,7 @@
     </Compile>
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="SimpleAlarmProperties.cs" />
     <Compile Include="SpecificTimer.cs" />
     <Compile Include="Tabs\AlarmTab.xaml.cs">
       <DependentUpon>AlarmTab.xaml</DependentUpon>

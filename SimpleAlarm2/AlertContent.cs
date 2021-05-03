@@ -48,7 +48,7 @@ namespace SimpleAlarm2
         public bool IsAlertEnabled
         {
             get => _isAlertEnabled;
-            set { _isAlertEnabled = value; App.AlarmController.SaveAlarms(); }
+            set { _isAlertEnabled = value; App.Settings.Save(); }
         }
 
         // For xaml compatibility properties

@@ -74,30 +74,33 @@ namespace SimpleAlarm2.Controls
         private void ClearAlert_Click(object sender, RoutedEventArgs e)
         {
             App.AlarmController.SetPinnedAlert(Index, -1);
-            App.AlarmController.SavePinnedAlert();
+            App.Settings.Save();
             UpdateUI();
         }
 
         private void OnSetPinnedAlarmDialogClosed(object o, DialogClosingEventArgs e)
         {
-            SetPinnedAlarmDialog dialog = DialogHelper.GetDialog<SetPinnedAlarmDialog>(o);
-            int selected = dialog.cbxAlarmType.SelectedIndex;
-
-            if(selected != -1)
+            if ((bool)e.Parameter)
             {
-                if (App.AlarmController.SetPinnedAlert(Index, selected))
+                SetPinnedAlarmDialog dialog = DialogHelper.GetDialog<SetPinnedAlarmDialog>(o);
+                int selected = dialog.cbxAlarmType.SelectedIndex;
+
+                if (selected != -1)
                 {
-                    App.AlarmController.SavePinnedAlert();
-                    UpdateUI();
-                } 
+                    if (App.AlarmController.SetPinnedAlert(Index, selected))
+                    {
+                        App.Settings.Save();
+                        UpdateUI();
+                    }
+                    else
+                    {
+                        MainViewModel.SnackMessageQueue.Enqueue("선택한 알람은 이미 고정되어있습니다.");
+                    }
+                }
                 else
                 {
-                    MainViewModel.SnackMessageQueue.Enqueue("선택한 알람은 이미 고정되어있습니다.");
+                    MainViewModel.SnackMessageQueue.Enqueue("고정할 알람을 선택해주세요.");
                 }
-            } 
-            else
-            {
-                MainViewModel.SnackMessageQueue.Enqueue("고정할 알람을 선택해주세요.");
             }
         }
 

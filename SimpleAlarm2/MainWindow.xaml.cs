@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace SimpleAlarm2
 {
-    // TODO(Release): App.xaml에 Todo 있으니까 주의
+    // TODO(Release): App.xaml에 Todo 있으니까 주의 (폰트 설정)
     public partial class MainWindow : Window
     {
         private const int animationDuration = 200;
@@ -56,7 +56,7 @@ namespace SimpleAlarm2
                 double x = mouseLoc.X - _offset.X;
                 double y = mouseLoc.Y - _offset.Y;
 
-                if (Properties.Settings.Default.UseSnappingWindow)
+                if (App.Settings.UseSnappingWindow)
                 {
                     Rect r = SystemParameters.WorkArea;
                     x = snapTo(r.Left, x);

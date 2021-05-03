@@ -6,10 +6,10 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewmodel="clr-namespace:SimpleAlarm2.ViewModels"
         xmlns:viewModelTabs="clr-namespace:SimpleAlarm2.ViewModels.Tabs"
-        xmlns:properties="clr-namespace:SimpleAlarm2.Properties"
         xmlns:tabs="clr-namespace:SimpleAlarm2.Tabs"
+        xmlns:local="clr-namespace:SimpleAlarm2"
         mc:Ignorable="d"
-        Topmost="{Binding UseTopmost, Source={x:Static properties:Settings.Default}, Mode=OneWay}"
+        Topmost="{Binding UseTopmost, Source={x:Static local:App.Settings}, Mode=OneWay}"
         WindowStyle="None" ResizeMode="NoResize"
         Title="SimpleAlarm" Height="400" Width="700">
     <Window.DataContext>
@@ -58,7 +58,7 @@
                 </TabControl>
                 <ToggleButton HorizontalAlignment="Left" VerticalAlignment="Bottom" 
                               Margin="8" ToolTip="창을 항상 위에 표시하기"
-                              IsChecked="{Binding UseTopmost, Source={x:Static properties:Settings.Default}}"/>
+                              IsChecked="{Binding UseTopmost, Source={x:Static local:App.Settings}}"/>
             </Grid>
 
             <!-- Top Snackbar -->

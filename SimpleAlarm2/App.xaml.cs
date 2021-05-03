@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
@@ -18,9 +19,9 @@ namespace SimpleAlarm2
 
     public partial class App : Application
     {
-        private static readonly Properties.Settings Settings = SimpleAlarm2.Properties.Settings.Default;
         private static ResourceDictionary cachedSkinDictionary = null;
         private static Skin skin = Skin.Light;
+        public static SimpleAlarmProperties Settings { get; private set; } = new SimpleAlarmProperties();
         public static AlarmManager AlarmController { get; private set; } = new AlarmManager();
 
 
@@ -30,7 +31,7 @@ namespace SimpleAlarm2
         }
 
 
-        private System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             Assembly thisAssembly = Assembly.GetExecutingAssembly();
 
@@ -57,16 +58,29 @@ namespace SimpleAlarm2
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Settings.Load();
             Settings.PropertyChanged += Default_PropertyChanged;
-            Skin = Settings.UseDarkMode ? Skin.Dark : Skin.Light;
-            AlarmController.LoadAlarms();
+            ApplySkin();
         }
 
         private void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Settings.Save();
             if (e.PropertyName == "UseDarkMode")
-                Skin = Settings.UseDarkMode ? Skin.Dark : Skin.Light;
+                ApplySkin();
+        }
+
+        private void ApplySkin()
+        {
+            // my static resource theme
+            Skin = Settings.UseDarkMode ? Skin.Dark : Skin.Light;
+
+            // wpf material theme
+            var palatteHelper = new PaletteHelper();
+
+            ITheme theme = palatteHelper.GetTheme();
+            theme.SetBaseTheme(Settings.UseDarkMode ? Theme.Dark : Theme.Light);
+            palatteHelper.SetTheme(theme);
         }
 
         public static Skin Skin
