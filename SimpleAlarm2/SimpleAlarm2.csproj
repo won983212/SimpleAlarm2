@@ -97,6 +97,7 @@
     <Compile Include="Controls\ClockPack.xaml.cs">
       <DependentUpon>ClockPack.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\TimespanToDatetimeConverter.cs" />
     <Compile Include="Dialog\ModifyAlarmDialog.xaml.cs">
       <DependentUpon>ModifyAlarmDialog.xaml</DependentUpon>
     </Compile>

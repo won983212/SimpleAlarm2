@@ -63,8 +63,8 @@ namespace SimpleAlarm2
 
             foreach (AlertContent content in Alerts)
             {
-                content.Update();
-                if ((int)content.GetRemainingTime().TotalSeconds <= 0)
+                content.OnRootTimerTick();
+                if ((int)content.RemainingTime.TotalSeconds <= 0)
                 {
                     if (content.IsAlertEnabled)
                     {

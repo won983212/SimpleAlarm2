@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:gl="clr-namespace:System.Globalization;assembly=mscorlib"
              xmlns:local="clr-namespace:SimpleAlarm2"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="700">
@@ -41,7 +42,6 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
@@ -62,39 +62,57 @@
                             </md:Card.ContextMenu>
                             <Grid Width="280">
                                 <ToggleButton HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12" IsChecked="{Binding IsAlertEnabled}" />
-                                <Grid Margin="16,8,8,24">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                                        <TextBlock FontSize="24pt">
-                                            <Hyperlink TextDecorations="None" Foreground="{DynamicResource TextColor}" Command="{Binding ModifyCommand}">
-                                                <Run Text="{Binding Time, Mode=OneWay}" />
-                                            </Hyperlink>
-                                        </TextBlock>
-                                        <TextBlock Text="{Binding Time, StringFormat=tt}" Margin="3,0,0,5" VerticalAlignment="Bottom" />
-                                    </StackPanel>
-                                    <md:PackIcon Kind="Tag" Grid.Row="1" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
-                                    <TextBlock Text="{Binding Label}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
-                                    <ContentPresenter Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding}">
-                                        <ContentPresenter.Resources>
-                                            <DataTemplate x:Key="AlarmContent">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <md:PackIcon Kind="Alarm" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
-                                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
-                                                        <Run Text="{Binding RemainingTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}"/>
-                                                        <Run>남음</Run>
+                                <ContentPresenter Margin="16,8,8,24" Content="{Binding}">
+                                    <ContentPresenter.Resources>
+                                        <DataTemplate x:Key="AlarmContent">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+                                                    <TextBlock FontSize="24pt">
+                                                        <Hyperlink TextDecorations="None" Foreground="{DynamicResource TextColor}" Command="{Binding ModifyCommand}">
+                                                            <Run Text="{Binding Time, StringFormat=h\\:mm, Converter={StaticResource TimespanToDatetimeConverter}, Mode=OneWay}" />
+                                                        </Hyperlink>
                                                     </TextBlock>
+                                                    <TextBlock Text="{Binding Time, StringFormat=tt, ConverterCulture={x:Static gl:CultureInfo.CurrentCulture}, Converter={StaticResource TimespanToDatetimeConverter}, Mode=OneWay}" Margin="3,0,0,5" VerticalAlignment="Bottom" />
                                                 </StackPanel>
-                                            </DataTemplate>
-                                            <DataTemplate x:Key="TimerContent">
-                                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                                <md:PackIcon Grid.Row="1" Kind="Tag" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
+                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Label}" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                                <md:PackIcon Grid.Row="2" Kind="Alarm" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
+                                                <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
+                                                    <Run Text="{Binding RemainingTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}"/>
+                                                    <Run>남음</Run>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="TimerContent">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.ColumnSpan="2" FontSize="24pt" HorizontalAlignment="Left">
+                                                    <Hyperlink TextDecorations="None" Foreground="{DynamicResource TextColor}" Command="{Binding ModifyCommand}">
+                                                        <Run Text="{Binding RemainingTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}" />
+                                                    </Hyperlink>
+                                                </TextBlock>
+                                                <md:PackIcon Grid.Row="1" Kind="Tag" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
+                                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Label}" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
+                                                <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Orientation="Horizontal" Margin="0,8,0,0">
                                                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Width="28" Height="28" Margin="0,0,12,0" 
                                                             Visibility="{Binding IsPaused, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding PlayCommand}">
                                                         <md:PackIcon Kind="Play" Width="20" Height="20" Foreground="{DynamicResource PrimaryContent}" />
@@ -107,22 +125,22 @@
                                                         <md:PackIcon Kind="Sync" Width="20" Height="20" Foreground="{DynamicResource PrimaryContent}" />
                                                     </Button>
                                                 </StackPanel>
-                                            </DataTemplate>
-                                        </ContentPresenter.Resources>
-                                        <ContentPresenter.Style>
-                                            <Style TargetType="ContentPresenter">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding AlertType}" Value="0">
-                                                        <Setter Property="ContentTemplate" Value="{StaticResource AlarmContent}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding AlertType}" Value="1">
-                                                        <Setter Property="ContentTemplate" Value="{StaticResource TimerContent}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </ContentPresenter.Style>
-                                    </ContentPresenter>
-                                </Grid>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ContentPresenter.Resources>
+                                    <ContentPresenter.Style>
+                                        <Style TargetType="ContentPresenter">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding AlertType}" Value="0">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource AlarmContent}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding AlertType}" Value="1">
+                                                    <Setter Property="ContentTemplate" Value="{StaticResource TimerContent}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentPresenter.Style>
+                                </ContentPresenter>
                             </Grid>
                         </md:Card>
                     </DataTemplate>

@@ -12,17 +12,7 @@ namespace SimpleAlarm2
             : base(label, destTime, SimpleAlarm2.AlertType.Alarm)
         { }
 
-        public override string GetAmPmString()
-        {
-            return DateTime.Today.Add(Time).ToString("tt");
-        }
-
-        public override string GetTimeString()
-        {
-            return Time.ToString(@"hh\:mm");
-        }
-
-        public override TimeSpan GetRemainingTime()
+        public override void OnRootTimerTick()
         {
             DateTime now = DateTime.Now;
             DateTime dest = DateTime.Today.Add(Time).AddSeconds(1);
@@ -30,12 +20,7 @@ namespace SimpleAlarm2
             if (now > dest)
                 dest = dest.AddDays(1);
 
-            return dest - now;
-        }
-
-        public override void Update()
-        {
-            OnPropertyChanged("RemainingTime");
+            RemainingTime = dest - now;
         }
     }
 }

@@ -10,14 +10,13 @@ namespace SimpleAlarm2
     class SpecificTimer : AlertContent
     {
         private DispatcherTimer timer;
-        private TimeSpan remainingTime;
         private DateTime endTime;
         private bool _hasSynchronized = false;
 
         public SpecificTimer(string label, TimeSpan time)
             : base(label, time, SimpleAlarm2.AlertType.Timer)
         {
-            remainingTime = time;
+            RemainingTime = time;
             PlayCommand = new RelayCommand(Play);
             PauseCommand = new RelayCommand(Pause);
             ResetCommand = new RelayCommand(Reset);
@@ -31,9 +30,7 @@ namespace SimpleAlarm2
                 _hasSynchronized = true;
             }
 
-            remainingTime = endTime - DateTime.Now;
-            OnPropertyChanged("TimeString");
-            OnPropertyChanged("RemainingTime");
+            RemainingTime = endTime - DateTime.Now;
         }
 
         private void Play()
@@ -44,19 +41,18 @@ namespace SimpleAlarm2
                 timer.Stop();
 
             _hasSynchronized = false;
-            endTime = DateTime.Now + remainingTime;
+            endTime = DateTime.Now + RemainingTime;
+
             timer = new DispatcherTimer();
             timer.Tick += Timer_Tick;
-            timer.Interval = TimeSpan.FromMilliseconds(remainingTime.Milliseconds);
+            timer.Interval = TimeSpan.FromMilliseconds(RemainingTime.Milliseconds);
             timer.Start();
         }
 
         private void Pause()
         {
             IsPaused = true;
-            remainingTime = endTime - DateTime.Now;
-            OnPropertyChanged("TimeString");
-            OnPropertyChanged("RemainingTime");
+            RemainingTime = endTime - DateTime.Now;
 
             if (timer != null)
             {
@@ -74,26 +70,7 @@ namespace SimpleAlarm2
             }
 
             IsPaused = true;
-            remainingTime = Time;
-            OnPropertyChanged("TimeString");
-            OnPropertyChanged("RemainingTime");
+            RemainingTime = Time;
         }
-
-        public override string GetAmPmString()
-        {
-            return "";
-        }
-
-        public override string GetTimeString()
-        {
-            return remainingTime.ToString(@"hh\:mm\:ss");
-        }
-
-        public override TimeSpan GetRemainingTime()
-        {
-            return remainingTime;
-        }
-
-        public override void Update() { }
     }
 }

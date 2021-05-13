@@ -20,7 +20,8 @@ namespace SimpleAlarm2
         private bool _isAlertEnabled = true;
         private bool _isPaused = true;
         private string _label = "";
-        private TimeSpan _time = TimeSpan.FromSeconds(0);
+        private TimeSpan _remaining = new TimeSpan(0);
+        private TimeSpan _time = new TimeSpan(0);
 
         protected AlertContent(string label, TimeSpan time, AlertType type)
         {
@@ -29,7 +30,6 @@ namespace SimpleAlarm2
             Label = label;
             Time = time;
             AlertType = (int) type;
-            Update();
         }
 
         private void DeleteElement()
@@ -47,18 +47,13 @@ namespace SimpleAlarm2
                     DateTime? time = dialog.timePicker.SelectedTime;
                     Label = dialog.tbxName.Text;
                     Time = new TimeSpan(time.Value.Hour, time.Value.Minute, time.Value.Second);
+                    ResetCommand.Execute(null);
                     App.Settings.Save();
                 }
             }
         }
 
-        public abstract TimeSpan GetRemainingTime();
-
-        public abstract string GetTimeString();
-
-        public abstract string GetAmPmString();
-
-        public abstract void Update();
+        public virtual void OnRootTimerTick() { }
 
 
         #region Properties
@@ -73,14 +68,7 @@ namespace SimpleAlarm2
         public TimeSpan Time
         {
             get => _time;
-            set 
-            { 
-                _time = value;
-                OnPropertyChanged();
-                OnPropertyChanged("TimeString"); 
-                OnPropertyChanged("AmPmString");
-                OnPropertyChanged("RemainingTime");
-            }
+            set { _time = value; OnPropertyChanged(); OnPropertyChanged("RemainingTime"); }
         }
 
         public bool IsAlertEnabled
@@ -92,23 +80,25 @@ namespace SimpleAlarm2
         public bool IsPaused
         {
             get => _isPaused;
-            set
-            {
-                _isPaused = value;
-                OnPropertyChanged();
-            }
+            set { _isPaused = value; OnPropertyChanged(); }
         }
 
-        // For xaml compatibility properties
-        public string TimeString { get => GetTimeString(); }
-        public string AmPmString { get => GetAmPmString(); }
+        public TimeSpan RemainingTime
+        {
+            get => _remaining;
+            set { _remaining = value; OnPropertyChanged(); }
+        }
+
         public int AlertType { get; private set; }
-        public TimeSpan RemainingTime { get => GetRemainingTime(); }
 
         public ICommand PlayCommand { get; protected set; } = new RelayCommand(() => { });
+
         public ICommand PauseCommand { get; protected set; } = new RelayCommand(() => { });
+
         public ICommand ResetCommand { get; protected set; } = new RelayCommand(() => { });
+
         public ICommand ModifyCommand { get; protected set; }
+
         public ICommand DeleteCommand { get; protected set; }
 
         #endregion

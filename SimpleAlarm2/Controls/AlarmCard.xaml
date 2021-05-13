@@ -24,7 +24,7 @@
             <Grid>
                 <StackPanel Margin="20,14">
                     <TextBlock FontSize="9pt" Foreground="{DynamicResource TextLight1Color}" Text="{Binding Alarm.Label}"/>
-                    <TextBlock FontSize="24pt" Margin="0,4,0,0" Foreground="{DynamicResource TextColor}" Text="{Binding Alarm.RemainingTime}"/>
+                    <TextBlock FontSize="24pt" Margin="0,4,0,0" Foreground="{DynamicResource TextColor}" Text="{Binding Alarm.RemainingTime, StringFormat=hh\\:mm\\:ss}"/>
                 </StackPanel>
                 <Button Style="{StaticResource MaterialDesignIconForegroundButton}"
                         HorizontalAlignment="Right"
