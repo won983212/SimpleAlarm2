@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /SimpleAlarm2/Libs/MaterialDesignColors.dll
 *.dll
+/SimpleAlarmConcept

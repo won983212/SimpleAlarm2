@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 
 namespace SimpleAlarm2.Dialog
 {
-    public partial class AddAlarmDialog : UserControl
+    public partial class ModifyAlarmDialog : UserControl
     {
-        public AddAlarmDialog()
+        public ModifyAlarmDialog(AlertContent alert)
         {
             InitializeComponent();
+            cbxAlarmType.SelectedIndex = alert.AlertType;
+            tbxName.Text = alert.Label;
+            timePicker.SelectedTime = DateTime.Today + alert.Time;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

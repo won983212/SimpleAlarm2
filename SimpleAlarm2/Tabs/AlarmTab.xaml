@@ -56,6 +56,7 @@
                         <md:Card Margin="8">
                             <md:Card.ContextMenu>
                                 <ContextMenu>
+                                    <MenuItem Header="수정" Command="{Binding ModifyCommand}"/>
                                     <MenuItem Header="삭제" Command="{Binding DeleteCommand}"/>
                                 </ContextMenu>
                             </md:Card.ContextMenu>
@@ -72,8 +73,12 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-                                        <TextBlock Text="{Binding TimeString}" FontSize="24pt" />
-                                        <TextBlock Text="{Binding AmPmString}" Margin="3,0,0,5" VerticalAlignment="Bottom" />
+                                        <TextBlock FontSize="24pt">
+                                            <Hyperlink TextDecorations="None" Foreground="{DynamicResource TextColor}" Command="{Binding ModifyCommand}">
+                                                <Run Text="{Binding Time, Mode=OneWay}" />
+                                            </Hyperlink>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Time, StringFormat=tt}" Margin="3,0,0,5" VerticalAlignment="Bottom" />
                                     </StackPanel>
                                     <md:PackIcon Kind="Tag" Grid.Row="1" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
                                     <TextBlock Text="{Binding Label}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}" />
@@ -83,7 +88,7 @@
                                                 <StackPanel Orientation="Horizontal">
                                                     <md:PackIcon Kind="Alarm" Margin="0,4,8,4" Foreground="{DynamicResource TextLight2Color}" />
                                                     <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TextLight2Color}">
-                                                        <Run Text="{Binding RemainingTime, Mode=OneWay}"/>
+                                                        <Run Text="{Binding RemainingTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}"/>
                                                         <Run>남음</Run>
                                                     </TextBlock>
                                                 </StackPanel>

@@ -97,6 +97,9 @@
     <Compile Include="Controls\ClockPack.xaml.cs">
       <DependentUpon>ClockPack.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialog\ModifyAlarmDialog.xaml.cs">
+      <DependentUpon>ModifyAlarmDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialog\SetPinnedAlarmDialog.xaml.cs">
       <DependentUpon>SetPinnedAlarmDialog.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
     <Page Include="Controls\ClockPack.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\ModifyAlarmDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialog\SetPinnedAlarmDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

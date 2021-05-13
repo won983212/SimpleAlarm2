@@ -18,9 +18,9 @@ namespace SimpleAlarm2
             : base(label, time, SimpleAlarm2.AlertType.Timer)
         {
             remainingTime = time;
-            PlayCommand = new RelayCommand<object>(Play);
-            PauseCommand = new RelayCommand<object>(Pause);
-            ResetCommand = new RelayCommand<object>(Reset);
+            PlayCommand = new RelayCommand(Play);
+            PauseCommand = new RelayCommand(Pause);
+            ResetCommand = new RelayCommand(Reset);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace SimpleAlarm2
             OnPropertyChanged("RemainingTime");
         }
 
-        private void Play(object o)
+        private void Play()
         {
             IsPaused = false;
 
@@ -51,7 +51,7 @@ namespace SimpleAlarm2
             timer.Start();
         }
 
-        private void Pause(object o)
+        private void Pause()
         {
             IsPaused = true;
             remainingTime = endTime - DateTime.Now;
@@ -65,7 +65,7 @@ namespace SimpleAlarm2
             }
         }
 
-        private void Reset(object o)
+        private void Reset()
         {
             if (timer != null)
             {
