@@ -33,7 +33,7 @@ namespace SimpleAlarm2.Controls
             analogClock.Time = time;
             tblAmPm.Text = time.ToString("tt", CultureInfo.InvariantCulture);
             tblDate.Text = time.ToString("yyyy.MM.dd ") + GetDayOfWeek(time.DayOfWeek) + ".";
-            tblTime.Text = time.ToString("hh:mm");
+            clockTime.CurrentTime = time;
         }
 
         public static string GetDayOfWeek(DayOfWeek now)

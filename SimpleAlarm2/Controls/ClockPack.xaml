@@ -18,7 +18,8 @@
 
         <control:AnalogClock x:Name="analogClock" Grid.ColumnSpan="2" Foreground="{DynamicResource TextColor}" />
         <TextBlock x:Name="tblAmPm" Grid.Row="1" FontSize="18pt" VerticalAlignment="Bottom" Margin="0,0,5,5">AM</TextBlock>
-        <TextBlock x:Name="tblTime" Grid.Row="1" Grid.Column="1" FontSize="42pt" Margin="0,16,0,0">09:17</TextBlock>
+        <control:TimeTransition x:Name="clockTime" Grid.Row="1" Grid.Column="1" 
+                                FontFamily="{StaticResource PrimaryFont}" FontWeight="Light" FontSize="42pt" Margin="0,16,0,0" />
         <TextBlock x:Name="tblDate" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" 
                    FontSize="9pt" Foreground="{DynamicResource TextLight1Color}">2020.05.17 Friday</TextBlock>
     </Grid>
